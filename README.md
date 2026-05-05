@@ -40,6 +40,8 @@ Then grant the following permissions before generating the invite URL:
 Then, run the following commands to start the bot:
 
 ```bash
+npm install
 npm run commands # only necessary if first time running
+
 npm start
 ```
