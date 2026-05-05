@@ -173,6 +173,15 @@ client.on(Events.InteractionCreate, async (interaction) => {
 			});
 		}
 
+		if (subcommand === "update") {
+			await updatePersistentEmbed(interaction.guild);
+
+			return interaction.reply({
+				content: "Persistent embed updated.",
+				flags: MessageFlags.Ephemeral,
+			});
+		}
+
 		if (subcommand === "delete") {
 			const id = interaction.options.getInteger("id");
 
@@ -196,15 +205,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 				return interaction.reply({
 					content:
 						"Requires 'Manage Messages' permission to delete coordinates added by other users",
-					flags: MessageFlags.Ephemeral,
-				});
-			}
-
-			if (subcommand === "update") {
-				await updatePersistentEmbed(interaction.guild);
-
-				return interaction.reply({
-					content: "Persistent embed updated.",
 					flags: MessageFlags.Ephemeral,
 				});
 			}
