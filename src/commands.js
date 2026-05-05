@@ -19,6 +19,13 @@ const commands = [
 		)
 		.addSubcommand((sub) =>
 			sub
+				.setName("update")
+				.setDescription(
+					"Update the persistent coordinate embed with the latest coordinates",
+				),
+		)
+		.addSubcommand((sub) =>
+			sub
 				.setName("add")
 				.setDescription("Add a coordinate")
 				.addIntegerOption((opt) =>

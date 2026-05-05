@@ -200,6 +200,15 @@ client.on(Events.InteractionCreate, async (interaction) => {
 				});
 			}
 
+			if (subcommand === "update") {
+				await updatePersistentEmbed(interaction.guild);
+
+				return interaction.reply({
+					content: "Persistent embed updated.",
+					flags: MessageFlags.Ephemeral,
+				});
+			}
+
 			db.prepare(
 				"DELETE FROM coords WHERE guild_id = ? AND id = ?",
 			).run(interaction.guild.id, id);
