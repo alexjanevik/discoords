@@ -173,11 +173,70 @@ client.on(Events.InteractionCreate, async (interaction) => {
 			});
 		}
 
-		if (subcommand === "update") {
+		if (subcommand === "refresh") {
 			await updatePersistentEmbed(interaction.guild);
 
 			return interaction.reply({
-				content: "Persistent embed updated.",
+				content: "Persistent embed refreshed",
+				flags: MessageFlags.Ephemeral,
+			});
+		}
+
+		if (subcommand === "update") {
+			const id = interaction.options.getInteger("id");
+			let x = interaction.options.getInteger("x");
+			let y = interaction.options.getInteger("y");
+			let z = interaction.options.getInteger("z");
+			let description = interaction.options.getString("description");
+
+			const coord = db
+				.prepare("SELECT * FROM coords WHERE guild_id = ? AND id = ?")
+				.get(interaction.guild.id, id);
+
+			if (!coord) {
+				return interaction.reply({
+					content: "ID not found",
+					flags: MessageFlags.Ephemeral,
+				});
+			}
+
+			const isOwner = coord.user_id === interaction.user.id;
+			const isMod = interaction.memberPermissions.has(
+				PermissionFlagsBits.ManageMessages,
+			);
+
+			if (!isOwner && !isMod) {
+				return interaction.reply({
+					content:
+						"Requires 'Manage Messages' permission to update coordinates added by other users",
+					flags: MessageFlags.Ephemeral,
+				});
+			}
+
+			if (x === null) {
+				x = coord.x;
+			}
+			if (y === null) {
+				y = coord.y;
+			}
+			if (z === null) {
+				z = coord.z;
+			}
+			if (description === null) {
+				description = coord.description;
+			}
+
+			db.prepare(
+				`
+				UPDATE coords SET x = ?, y = ?, z = ?, description = ?
+				WHERE guild_id = ? AND id = ?
+			`,
+			).run(x, y, z, description, interaction.guild.id, id);
+
+			await updatePersistentEmbed(interaction.guild);
+
+			return interaction.reply({
+				content: `Coordinate updated (ID: ${id})`,
 				flags: MessageFlags.Ephemeral,
 			});
 		}

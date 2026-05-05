@@ -19,9 +19,9 @@ const commands = [
 		)
 		.addSubcommand((sub) =>
 			sub
-				.setName("update")
+				.setName("refresh")
 				.setDescription(
-					"Update the persistent coordinate embed with the latest coordinates",
+					"Refresh the persistent coordinate embed with the latest coordinates",
 				),
 		)
 		.addSubcommand((sub) =>
@@ -51,6 +51,41 @@ const commands = [
 						.setName("description")
 						.setDescription("Description")
 						.setRequired(true),
+				),
+		)
+		.addSubcommand((sub) =>
+			sub
+				.setName("update")
+				.setDescription("Update a coordinate by ID")
+				.addIntegerOption((opt) =>
+					opt
+						.setName("id")
+						.setDescription("Coordinate ID")
+						.setRequired(true),
+				)
+				.addIntegerOption((opt) =>
+					opt
+						.setName("x")
+						.setDescription("X coordinate")
+						.setRequired(false),
+				)
+				.addIntegerOption((opt) =>
+					opt
+						.setName("y")
+						.setDescription("Y coordinate")
+						.setRequired(false),
+				)
+				.addIntegerOption((opt) =>
+					opt
+						.setName("z")
+						.setDescription("Z coordinate")
+						.setRequired(false),
+				)
+				.addStringOption((opt) =>
+					opt
+						.setName("description")
+						.setDescription("Description")
+						.setRequired(false),
 				),
 		)
 		.addSubcommand((sub) =>
