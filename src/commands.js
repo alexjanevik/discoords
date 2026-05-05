@@ -8,7 +8,7 @@ import {
 
 const commands = [
 	new SlashCommandBuilder()
-		.setName("coord")
+		.setName("coords")
 		.setDescription("Manage server coordinates")
 		.addSubcommand((sub) =>
 			sub
@@ -32,12 +32,6 @@ const commands = [
 					opt
 						.setName("x")
 						.setDescription("X coordinate")
-						.setRequired(true),
-				)
-				.addIntegerOption((opt) =>
-					opt
-						.setName("y")
-						.setDescription("Y coordinate")
 						.setRequired(true),
 				)
 				.addIntegerOption((opt) =>
@@ -67,12 +61,6 @@ const commands = [
 					opt
 						.setName("x")
 						.setDescription("X coordinate")
-						.setRequired(false),
-				)
-				.addIntegerOption((opt) =>
-					opt
-						.setName("y")
-						.setDescription("Y coordinate")
 						.setRequired(false),
 				)
 				.addIntegerOption((opt) =>

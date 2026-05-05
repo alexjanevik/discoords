@@ -13,7 +13,6 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     guild_id TEXT NOT NULL,
     x INTEGER NOT NULL,
-    y INTEGER NOT NULL,
     z INTEGER NOT NULL,
     description TEXT NOT NULL,
     user_id TEXT NOT NULL,

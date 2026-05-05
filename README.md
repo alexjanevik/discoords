@@ -1,31 +1,45 @@
 # Discoords
 
-A Discord app for storing Minecraft coordinates in a persistent and updating embed. Built in Node using Discord.js with SQLite for the database.
+A Discord bot for storing Minecraft coordinates in a persistent and updating embedded message. Built in Node using [discord.js](https://discord.js.org/) with SQLite for the database.
 
 ## Commands
 
-```python
-/coord setup
-/coord add {x} {y} {z} {description}
-/coord delete {id}
-/coord update
+```mcfunction
+/coord setup # initial bot setup in channel
+/coord add {x} {z} {description} # add coordinate
+/coord delete {id} # delete coordinate
+/coord update {id} {x?} {z?} {description?} # update coordinate
+/coord refesh # refresh embedded message
 ```
 
 ## Setup
 
-Create a Discord bot in the developer portal and invite it to your server. You can find `DISCORD_TOKEN` and `CLIENT_ID` in this dashboard.
+Create a Discord bot in the [Discord Developer Portal](https://discord.com/developers/home). You can find `DISCORD_TOKEN` and `CLIENT_ID` in this dashboard under 'Bot' and 'OAuth', respectively.
 
-Your .env file should look like so
+Your .env file should look like:
 
-```python
+```env
 DISCORD_TOKEN=...
 CLIENT_ID=...
-GUILD_ID=... # server id
+GUILD_ID=... # discord server id (enable developer mode)
 ```
 
-Then, run the following commands to start the bot
+To invite the bot to your server, navigate to OAuth -> URL Generator. Under scopes, select:
+
+- bot
+- applications.commands
+
+Then grant the following permissions before generating the invite URL:
+
+- View Channels
+- Send Messages
+- Embed Links
+- Read Message History
+- Manage Messages
+
+Then, run the following commands to start the bot:
 
 ```bash
-npm run commands
+npm run commands # only necessary if first time running
 npm start
 ```

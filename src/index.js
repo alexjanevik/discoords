@@ -47,7 +47,7 @@ function buildCoordEmbed(guildId, page = 0) {
 
 	for (const coord of shown) {
 		embed.addFields({
-			name: `${coord.id}: (${coord.x}, ${coord.y}, ${coord.z})`,
+			name: `${coord.id}: (${coord.x}, ${coord.z})`,
 			value: `${coord.description} - <@${coord.user_id}>`,
 			inline: false,
 		});
@@ -106,7 +106,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 
 	if (!interaction.isChatInputCommand()) return;
-	if (interaction.commandName !== "coord") return;
+	if (interaction.commandName !== "coords") return;
 
 	const subcommand = interaction.options.getSubcommand();
 
@@ -146,20 +146,18 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 		if (subcommand === "add") {
 			const x = interaction.options.getInteger("x");
-			const y = interaction.options.getInteger("y");
 			const z = interaction.options.getInteger("z");
 			const description =
 				interaction.options.getString("description");
 
 			db.prepare(
 				`
-        INSERT INTO coords (guild_id, x, y, z, description, user_id)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO coords (guild_id, x, z, description, user_id)
+        VALUES (?, ?, ?, ?, ?)
       `,
 			).run(
 				interaction.guild.id,
 				x,
-				y,
 				z,
 				description,
 				interaction.user.id,
@@ -185,7 +183,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 		if (subcommand === "update") {
 			const id = interaction.options.getInteger("id");
 			let x = interaction.options.getInteger("x");
-			let y = interaction.options.getInteger("y");
 			let z = interaction.options.getInteger("z");
 			let description = interaction.options.getString("description");
 
@@ -216,9 +213,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 			if (x === null) {
 				x = coord.x;
 			}
-			if (y === null) {
-				y = coord.y;
-			}
 			if (z === null) {
 				z = coord.z;
 			}
@@ -228,10 +222,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 			db.prepare(
 				`
-				UPDATE coords SET x = ?, y = ?, z = ?, description = ?
+				UPDATE coords SET x = ?, z = ?, description = ?
 				WHERE guild_id = ? AND id = ?
 			`,
-			).run(x, y, z, description, interaction.guild.id, id);
+			).run(x, z, description, interaction.guild.id, id);
 
 			await updatePersistentEmbed(interaction.guild);
 
@@ -294,13 +288,13 @@ function buildPaginationButtons(page, totalPages) {
 		new ButtonBuilder()
 			.setCustomId(`coord_page:${page - 1}`)
 			.setLabel("Previous")
-			.setStyle(ButtonStyle.Secondary)
+			.setStyle(ButtonStyle.Primary)
 			.setDisabled(page <= 0),
 
 		new ButtonBuilder()
 			.setCustomId(`coord_page:${page + 1}`)
 			.setLabel("Next")
-			.setStyle(ButtonStyle.Secondary)
+			.setStyle(ButtonStyle.Primary)
 			.setDisabled(page >= totalPages - 1),
 	);
 }
