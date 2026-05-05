@@ -16,7 +16,7 @@ A Discord bot for storing Minecraft coordinates in a persistent and updating emb
 
 Create a Discord bot in the [Discord Developer Portal](https://discord.com/developers/home). You can find `DISCORD_TOKEN` and `CLIENT_ID` in this dashboard under 'Bot' and 'OAuth', respectively.
 
-Your .env file should look like:
+Your `.env` file should contain:
 
 ```env
 DISCORD_TOKEN=...
