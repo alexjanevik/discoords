@@ -182,13 +182,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 		if (subcommand === "update") {
 			const id = interaction.options.getInteger("id");
-			let x = interaction.options.getInteger("x");
-			let z = interaction.options.getInteger("z");
-			let description = interaction.options.getString("description");
-
 			const coord = db
 				.prepare("SELECT * FROM coords WHERE guild_id = ? AND id = ?")
 				.get(interaction.guild.id, id);
+			const x = interaction.options.getInteger("x") ?? coord.x;
+			const z = interaction.options.getInteger("z") ?? coord.z;
+			const description =
+				interaction.options.getString("description") ??
+				coord.description;
 
 			if (!coord) {
 				return interaction.reply({
@@ -208,16 +209,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 						"Requires 'Manage Messages' permission to update coordinates added by other users",
 					flags: MessageFlags.Ephemeral,
 				});
-			}
-
-			if (x === null) {
-				x = coord.x;
-			}
-			if (z === null) {
-				z = coord.z;
-			}
-			if (description === null) {
-				description = coord.description;
 			}
 
 			db.prepare(
