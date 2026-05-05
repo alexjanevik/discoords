@@ -9,7 +9,7 @@ A Discord bot for storing Minecraft coordinates in a persistent and updating emb
 /coord add {x} {z} {description} # add coordinate
 /coord delete {id} # delete coordinate
 /coord update {id} {x?} {z?} {description?} # update coordinate
-/coord refesh # refresh embedded message
+/coord refresh # refresh embedded message
 ```
 
 ## Setup
