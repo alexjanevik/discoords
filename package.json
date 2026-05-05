@@ -1,0 +1,27 @@
+{
+  "name": "discoords",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "commands": "node src/commands.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexjanevik/discoords.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/alexjanevik/discoords/issues"
+  },
+  "homepage": "https://github.com/alexjanevik/discoords#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.9.0",
+    "discord.js": "^14.26.4",
+    "dotenv": "^17.4.2"
+  }
+}
