@@ -119,7 +119,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 			if (existing) {
 				return interaction.reply({
 					content:
-						"A persistent coord embed already exists in the server",
+						"A persistent coord embed already exists in the server.",
 					flags: MessageFlags.Ephemeral,
 				});
 			}
@@ -206,7 +206,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 			if (!isOwner && !isMod) {
 				return interaction.reply({
 					content:
-						"Requires 'Manage Messages' permission to update coordinates added by other users",
+						"Requires 'Manage Messages' permission to update coordinates added by other users.",
 					flags: MessageFlags.Ephemeral,
 				});
 			}
@@ -248,7 +248,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 			if (!isOwner && !isMod) {
 				return interaction.reply({
 					content:
-						"Requires 'Manage Messages' permission to delete coordinates added by other users",
+						"Requires 'Manage Messages' permission to delete coordinates added by other users.",
 					flags: MessageFlags.Ephemeral,
 				});
 			}
@@ -268,7 +268,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 		console.error(error);
 
 		return interaction.reply({
-			content: error.message ?? "Something went wrong",
+			content: error.message ?? "Error: check console for details.",
 			flags: MessageFlags.Ephemeral,
 		});
 	}
